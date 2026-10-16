@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더하기교육원 - 유아교육과 학습 동기 진단 테스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #fdfbf7;
+            color: #1e293b;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 207, 232, 0.5);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+            transition: all 0.3s ease;
+        }
+        .gradient-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.3);
+        }
+        .radio-option {
+            transition: all 0.2s ease;
+        }
+        .radio-option:hover {
+            border-color: #f43f5e;
+            background-color: #fff1f2;
+        }
+        .radio-option.selected {
+            border-color: #f43f5e;
+            background-color: #ffe4e6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <header class="bg-white border-b border-rose-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-400 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-child-reaching"></i>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 font-bold">더하기교육원</span>
+                        <h1 class="font-bold text-slate-800 text-lg leading-tight">유아교육과 학습 동기 진단</h1>
+                    </div>
+                    <p class="text-xs text-slate-500">신입생 대학적응 & 예비 유아교사 동기부여 프로그램</p>
+                </div>
+            </div>
+            <div id="headerProgress" class="hidden text-right">
+                <span id="progressText" class="text-sm font-semibold text-rose-600">0%</span>
+                <div class="w-24 bg-slate-100 rounded-full h-2 mt-1 overflow-hidden">
+                    <div id="progressBar" class="bg-rose-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
+
+        <!-- INTRO SCREEN -->
+        <div id="introScreen" class="glass-card rounded-2xl p-6 sm:p-10 shadow-xl text-center border-t-4 border-rose-400">
+            <div class="inline-flex p-3.5 rounded-2xl bg-rose-50 text-rose-500 mb-4 shadow-inner">
+                <i class="fa-solid fa-shapes text-4xl"></i>
+            </div>
+            <p class="text-xs font-bold text-rose-500 tracking-wider uppercase mb-1">Plus Education Institute • 더하기교육원</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-3">
+                나의 <span class="gradient-text">유아교육 학습 동기 유형</span>은?
+            </h2>
+            <p class="text-slate-600 mb-6 max-w-xl mx-auto leading-relaxed text-sm sm:text-base">
+                아이들의 꿈을 키우는 따뜻한 유아교사로서의 첫걸음! <br class="hidden sm:inline">
+                현재 나의 학습 상태를 30가지 문항으로 점검하고, 나에게 꼭 맞는 <b>전공 학습 및 교사 역량 성장 전략</b>을 찾아보세요.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-2xl mx-auto mb-8 text-xs text-slate-600">
+                <div class="p-3 rounded-xl bg-rose-50/50 border border-rose-100">
+                    <i class="fa-solid fa-heart text-rose-500 text-lg mb-1 block"></i>
+                    <span>내재적 동기</span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-50/50 border border-amber-100">
+                    <i class="fa-solid fa-award text-amber-500 text-lg mb-1 block"></i>
+                    <span>외재적 동기</span>
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-50/50 border border-emerald-100">
+                    <i class="fa-solid fa-face-smile text-emerald-500 text-lg mb-1 block"></i>
+                    <span>자기효능감</span>
+                </div>
+                <div class="p-3 rounded-xl bg-sky-50/50 border border-sky-100">
+                    <i class="fa-solid fa-compass text-sky-500 text-lg mb-1 block"></i>
+                    <span>학습 전략</span>
+                </div>
+                <div class="p-3 rounded-xl bg-indigo-50/50 border border-indigo-100 col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-hand-holding-heart text-indigo-500 text-lg mb-1 block"></i>
+                    <span>회복탄력성</span>
+                </div>
+            </div>
+
+            <div class="mb-8 max-w-md mx-auto text-left bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <label for="userName" class="block text-xs font-semibold text-slate-700 mb-1">학생 이름 (선택사항)</label>
+                <input type="text" id="userName" placeholder="이름을 입력하세요 (예: 김유아)" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm">
+            </div>
+
+            <button onclick="startTest()" class="gradient-btn text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl text-base w-full sm:w-auto">
+                진단 테스트 시작하기 <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- TEST QUESTION SCREEN -->
+        <div id="testScreen" class="hidden">
+            <div id="questionContainer" class="space-y-6">
+                <!-- Question cards generated via JS -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between items-center mt-8 pt-6 border-t border-slate-200">
+                <button id="prevBtn" onclick="prevPage()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 font-medium hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed text-sm">
+                    <i class="fa-solid fa-chevron-left mr-2"></i> 이전
+                </button>
+                <span id="pageIndicator" class="text-xs font-semibold text-slate-500">
+                    1 / 6 페이지
+                </span>
+                <button id="nextBtn" onclick="nextPage()" class="gradient-btn text-white px-6 py-2.5 rounded-xl font-medium shadow text-sm">
+                    다음 <i class="fa-solid fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="resultScreen" class="hidden space-y-6">
+            <!-- Header Result Card -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl border-t-4 border-rose-500 text-center relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 text-rose-50 opacity-40 pointer-events-none">
+                    <i class="fa-solid fa-shapes text-9xl"></i>
+                </div>
+                
+                <div class="flex items-center justify-center space-x-2 mb-2">
+                    <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold">더하기교육원 리포트</span>
+                    <span id="resultUserTag" class="text-xs font-medium text-slate-500"></span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-1" id="resultTypeTitle">진단 중...</h2>
+                <p class="text-rose-600 font-semibold text-sm mb-4" id="resultTypeSubtitle"></p>
+                
+                <div class="inline-flex items-center justify-center p-4 bg-rose-50/50 rounded-2xl border border-rose-100 my-2 shadow-inner">
+                    <div class="text-center px-4">
+                        <span class="block text-xs text-slate-500">종합 학습 동기 점수</span>
+                        <span id="totalScore" class="text-3xl font-black text-rose-600">0</span>
+                        <span class="text-xs text-slate-400">/ 150점</span>
+                    </div>
+                </div>
+
+                <p id="resultTypeDesc" class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto mt-4 text-left sm:text-center"></p>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Radar Chart -->
+                <div class="glass-card rounded-2xl p-5 shadow-md">
+                    <h3 class="font-bold text-slate-800 text-sm mb-4 flex items-center">
+                        <i class="fa-solid fa-chart-pie text-rose-500 mr-2"></i> 5대 역량 밸런스 차트
+                    </h3>
+                    <div class="relative w-full h-64">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Domain Scores Breakdown -->
+                <div class="glass-card rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                    <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center">
+                        <i class="fa-solid fa-list-check text-rose-500 mr-2"></i> 영역별 상세 점수
+                    </h3>
+                    <div id="domainBars" class="space-y-3 my-auto">
+                        <!-- JS populated bars -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Strategy Card -->
+            <div class="glass-card rounded-2xl p-6 shadow-md border-l-4 border-amber-500">
+                <h3 class="font-bold text-slate-800 text-base mb-3 flex items-center">
+                    <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> [더하기교육원] 예비 유아교사 맞춤 성장 가이드
+                </h3>
+                <div id="strategyContent" class="space-y-3 text-sm text-slate-600 leading-relaxed">
+                    <!-- JS populated -->
+                </div>
+            </div>
+
+            <!-- Domain-specific Advice -->
+            <div class="glass-card rounded-2xl p-6 shadow-md">
+                <h3 class="font-bold text-slate-800 text-base mb-4 flex items-center">
+                    <i class="fa-solid fa-compass text-rose-500 mr-2"></i> 세부 영역별 성장 솔루션
+                </h3>
+                <div id="domainSolutions" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <!-- JS populated -->
+                </div>
+            </div>
+
+            <!-- Bottom Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-3 pt-4">
+                <button onclick="window.print()" class="px-6 py-3 rounded-xl border border-slate-300 text-slate-700 font-medium hover:bg-slate-100 text-sm flex items-center justify-center">
+                    <i class="fa-solid fa-print mr-2"></i> 결과 리포트 출력 / PDF 저장
+                </button>
+                <button onclick="restartTest()" class="gradient-btn text-white font-medium px-6 py-3 rounded-xl text-sm flex items-center justify-center">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> 다시 테스트하기
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-rose-100 py-4 text-center text-xs text-slate-400">
+        <p>© <b>더하기교육원</b> | 유아교육과 신입생 학습 동기 및 교사 역량 진단 프로그램</p>
+    </footer>
+
+    <script>
+        // Questions Data Structure for Early Childhood Education
+        const questions = [
+            // 1. 내재적 동기 (1-6)
+            { id: 1, domain: 0, domainName: "내재적 동기", text: "유아발달이나 유아교육과정 관련 수업을 들을 때 새로운 내용을 배우는 것 자체가 흥미롭다." },
+            { id: 2, domain: 0, domainName: "내재적 동기", text: "아이들의 행동 특성이나 심리에 관한 주제는 수업 외에도 스스로 찾아보곤 한다." },
+            { id: 3, domain: 0, domainName: "내재적 동기", text: "시험이나 과제가 없더라도 유아교육 관련 도서, 교구 제작 영상, 교육 다큐 등을 흥미롭게 본다." },
+            { id: 4, domain: 0, domainName: "내재적 동기", text: "배운 내용을 주변 아이들의 행동을 관찰하거나 실제 상상해 보며 적용해 보는 것이 즐겁다." },
+            { id: 5, domain: 0, domainName: "내재적 동기", text: "수업 중 유아지도 방식에 관한 의문이 생기면 그냥 넘기지 않고 깊이 고민해 본다." },
+            { id: 6, domain: 0, domainName: "내재적 동기", text: "어려운 교육 이론이나 유아 지도법을 제대로 이해하고 창의적인 아이디어가 떠올랐을 때 뿌듯하다." },
+
+            // 2. 외재적 동기 (7-12)
+            { id: 7, domain: 1, domainName: "외재적 동기", text: "유치원정교사 2급 자격증 취득 및 보육교사 자격 취득이 나의 주요 공부 목표이다." },
+            { id: 8, domain: 1, domainName: "외재적 동기", text: "임용고시 합격이나 우수한 유치원/어린이집 취업이라는 목표가 공부에 몰입하게 만든다." },
+            { id: 9, domain: 1, domainName: "외재적 동기", text: "좋은 학점(GPA)을 받거나 성적 장학금을 타는 것이 나에게 중요한 보상이 된다." },
+            { id: 10, domain: 1, domainName: "외재적 동기", text: "미래에 아이들과 학부모에게 신뢰받는 전문 유아교사로 일할 나의 모습이 기대된다." },
+            { id: 11, domain: 1, domainName: "외재적 동기", text: "주변 사람(부모님, 교수님, 친구)들에게 모범적이고 능력 있는 예비교사로 인정받고 싶다." },
+            { id: 12, domain: 1, domainName: "외재적 동기", text: "졸업 후 안정적이고 전문적인 유아교육 커리어를 쌓기 위해 지금의 공부가 필수적이라고 생각한다." },
+
+            // 3. 자기효능감 (13-18)
+            { id: 13, domain: 2, domainName: "자기효능감", text: "유아교육 개론, 발달심리 등 전공 학문이 어렵더라도 '노력하면 해낼 수 있다'고 믿는다." },
+            { id: 14, domain: 2, domainName: "자기효능감", text: "교구 제작, 수업 시연, 모의 수업 발표 등을 자신감 있게 준비할 수 있다." },
+            { id: 15, domain: 2, domainName: "자기효능감", text: "다른 학생들에 비해 유아교육 전공 내용을 충분히 잘 이해하고 잘 따라갈 수 있다고 본다." },
+            { id: 16, domain: 2, domainName: "자기효능감", text: "실습이나 과제 수행 중 피드백을 받더라도 이를 극복하고 더 발전시킬 능력이 내게 있다." },
+            { id: 17, domain: 2, domainName: "자기효능감", text: "과제 범위나 실습 준비 분량이 많더라도 체계적인 계획을 통해 차근차근 해결할 수 있다." },
+            { id: 18, domain: 2, domainName: "자기효능감", text: "나는 아이들을 사랑하고 훌륭한 유아교사가 될 만한 성실함과 역량을 가졌다고 생각한다." },
+
+            // 4. 자기조절 및 학습 전략 (19-24)
+            { id: 19, domain: 3, domainName: "학습 전략", text: "매주 전공 수업 복습, 과제 제출, 교구 제작 등의 일정을 미리 계획하여 지킨다." },
+            { id: 20, domain: 3, domainName: "학습 전략", text: "전공 이론 암기가 많을 때 나만의 요약 노트나 시각적 자료(마인드맵 등)로 정리한다." },
+            { id: 21, domain: 3, domainName: "학습 전략", text: "공부나 과제에 방해되는 요소(스마트폰, SNS 등)를 스스로 조절하려고 노력한다." },
+            { id: 22, domain: 3, domainName: "학습 전략", text: "이해가 안 되는 전공 내용이나 수업 기획은 교수님께 물어보거나 동기들과 스터디를 통해 해결한다." },
+            { id: 23, domain: 3, domainName: "학습 전략", text: "시험 및 과제 제출일에 임박해서 벼락치기를 하기보다 미리 분량을 나누어 대비한다." },
+            { id: 24, domain: 3, domainName: "학습 전략", text: "나의 전공 공부 방식이 효과적인지 주기적으로 돌아보고 필요하면 개선해 나간다." },
+
+            // 5. 회복탄력성 및 대학 적응 (25-30)
+            { id: 25, domain: 4, domainName: "회복탄력성", text: "성적이 생각만큼 나오지 않거나 발표를 실수해도 포기하지 않고 다음 기회를 준비한다." },
+            { id: 26, domain: 4, domainName: "회복탄력성", text: "대학 생활이나 교직 진로에 대해 고민이 생길 때 진솔하게 조언을 구할 선배, 동기, 교수님이 있다." },
+            { id: 27, domain: 4, domainName: "회복탄력성", text: "학업이나 과제로 지칠 때 나만의 건강한 스트레스 해소법으로 마음을 다스릴 수 있다." },
+            { id: 28, domain: 4, domainName: "회복탄력성", text: "고등학교 공부와 달라진 대학 전공 수업 및 실습 위주 학습 방식에 적응하기 위해 노력하고 있다." },
+            { id: 29, domain: 4, domainName: "회복탄력성", text: "학업적 슬럼프가 찾아오더라도 유아교사로서의 초심을 떠올리며 금방 털어낼 수 있다." },
+            { id: 30, domain: 4, domainName: "회복탄력성", text: "유아교육과에 입학한 현재 나의 선택에 만족하며, 즐거운 마음으로 대학 생활을 하고 있다." }
+        ];
+
+        const domainNames = ["내재적 동기", "외재적 동기", "자기효능감", "학습 전략", "회복탄력성"];
+        const answers = new Array(30).fill(0);
+        let currentPage = 0; // 0 ~ 5
+        const questionsPerPage = 5;
+        let radarChartInstance = null;
+
+        function startTest() {
+            document.getElementById('introScreen').classList.add('hidden');
+            document.getElementById('testScreen').classList.remove('hidden');
+            document.getElementById('headerProgress').classList.remove('hidden');
+            renderPage();
+        }
+
+        function renderPage() {
+            const container = document.getElementById('questionContainer');
+            container.innerHTML = '';
+
+            const startIdx = currentPage * questionsPerPage;
+            const endIdx = startIdx + questionsPerPage;
+            const pageQuestions = questions.slice(startIdx, endIdx);
+
+            pageQuestions.forEach((q, idx) => {
+                const qNum = startIdx + idx + 1;
+                const currentAns = answers[qNum - 1];
+
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-2xl p-5 shadow-sm space-y-4 border border-rose-100";
+
+                card.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-rose-100 text-rose-800 font-bold text-xs shrink-0 mt-0.5">${qNum}</span>
+                        <div>
+                            <span class="text-xs font-medium text-rose-600 block mb-0.5">[${q.domainName}]</span>
+                            <p class="text-slate-800 font-medium text-sm leading-relaxed">${q.text}</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-5 gap-1.5 pt-2">
+                        ${[1, 2, 3, 4, 5].map(val => `
+                            <button onclick="selectAnswer(${qNum - 1}, ${val})" 
+                                class="radio-option py-2 px-1 rounded-xl border text-center transition-all ${currentAns === val ? 'selected' : 'border-slate-200 text-slate-600 bg-white'}">
+                                <span class="block text-xs font-bold">${val}점</span>
+                                <span class="block text-[10px] text-slate-400 mt-0.5">${getScoreLabel(val)}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Update Page info
+            document.getElementById('pageIndicator').innerText = `${currentPage + 1} / 6 페이지`;
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            
+            if (currentPage === 5) {
+                document.getElementById('nextBtn').innerHTML = `결과 보기 <i class="fa-solid fa-check ml-2"></i>`;
+            } else {
+                document.getElementById('nextBtn').innerHTML = `다음 <i class="fa-solid fa-chevron-right ml-2"></i>`;
+            }
+
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getScoreLabel(val) {
+            switch(val) {
+                case 1: return "전혀 아니다";
+                case 2: return "약간 아니다";
+                case 3: return "보통이다";
+                case 4: return "대체로 그렇다";
+                case 5: return "매우 그렇다";
+            }
+        }
+
+        function selectAnswer(qIndex, val) {
+            answers[qIndex] = val;
+            renderPage();
+        }
+
+        function updateProgress() {
+            const answeredCount = answers.filter(a => a > 0).length;
+            const percentage = Math.round((answeredCount / 30) * 100);
+            document.getElementById('progressText').innerText = `${percentage}%`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+        }
+
+        function nextPage() {
+            const startIdx = currentPage * questionsPerPage;
+            for (let i = startIdx; i < startIdx + questionsPerPage; i++) {
+                if (answers[i] === 0) {
+                    alert(`${i + 1}번 문항에 답변해 주세요!`);
+                    return;
+                }
+            }
+
+            if (currentPage < 5) {
+                currentPage++;
+                renderPage();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('testScreen').classList.add('hidden');
+            document.getElementById('headerProgress').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+
+            const userName = document.getElementById('userName').value.trim() || '예비유아교사';
+            document.getElementById('resultUserTag').innerText = `${userName} 님의 진단 결과`;
+
+            // Calculate domain scores
+            const domainScores = [0, 0, 0, 0, 0];
+            answers.forEach((ans, idx) => {
+                const domainIdx = questions[idx].domain;
+                domainScores[domainIdx] += ans;
+            });
+
+            const totalScore = domainScores.reduce((a, b) => a + b, 0);
+            document.getElementById('totalScore').innerText = totalScore;
+
+            // Type Determination
+            let typeTitle = "", typeSubtitle = "", typeDesc = "", strategyHtml = "";
+
+            if (totalScore >= 126) {
+                typeTitle = "🟢 Type A. 완벽 몰입형 (Master Educator)";
+                typeSubtitle = "유아에 대한 애정과 명확한 교사 비전, 나만의 학습 루틴을 겸비한 준비된 유아교사";
+                typeDesc = "유아교육 전공에 대한 깊은 흥미와 명확한 미래 교사로서의 비전, 체계적인 공부 습관을 완벽히 갖춘 상태입니다. 대학 전공 수업 및 모의수업, 실습에서 뛰어난 역량을 발휘할 유망주입니다.";
+                strategyHtml = `
+                    <p>• <b>글로벌 & 창의 교육 시야 넓히기:</b> 몬테소리, 레지오 에밀리아, 숲유치원 등 다양한 선진 유아교육 패러다임과 동향을 탐구해보세요.</p>
+                    <p>• <b>에듀테크 & 교구 개발:</b> 디지털 매체 활용 유아지도 및 창의적 교구 제작 프로젝트에 도전해 전공 포트폴리오를 다져보세요.</p>
+                    <p>• <b>동기 리더십:</b> 전공 스터디나 모의수업 준비 시 동기들을 이끌어주는 멘토 역할을 맡아 협력적 교사 역량을 길러보세요.</p>
+                `;
+            } else if (totalScore >= 101) {
+                typeTitle = "🔵 Type B. 목표 집중형 (Strategic Teacher)";
+                typeSubtitle = "임용고시, 정교사 자격, 우수 취업을 겨냥해 전략적으로 달리는 실전형 예비교사";
+                typeDesc = "유치원 정교사 자격 취득, 학점 관리, 임용 및 취업에 대한 목표의식이 명확합니다. 성과 중심의 몰입도가 매우 뛰어나지만, 과제나 모의수업 발표 부담이 몰릴 때 스트레스를 받을 수 있습니다.";
+                strategyHtml = `
+                    <p>• <b>아이들과의 동심 가치 느끼기:</b> 성적이나 임용 시험 점수에만 치중하기보다 '내가 아이들에게 전해줄 따뜻한 영향력'에 대한 교육적 가치를 매일 떠올려보세요.</p>
+                    <p>• <b>과정의 즐거움 찾기:</b> 단기적 시험 결과 외에도 동화구현, 노래지도 등 배움 자체의 재미(내재적 동기)를 키워보세요.</p>
+                    <p>• <b>페이스 조절:</b> 과제 제출일에 임박해 무리하기보다 평소 꾸준히 분량을 배분하는 주간 일정 관리가 필수적입니다.</p>
+                `;
+            } else if (totalScore >= 76) {
+                typeTitle = "🟡 Type C. 잠재 성장형 (Unpolished Gem)";
+                typeSubtitle = "적절한 교사 교육과 학습 전략만 더해지면 폭발적으로 성장할 가치 있는 원석";
+                typeDesc = "좋은 유아교사가 되고 싶은 의지와 열정은 크지만, 대학의 방대한 전공 이론(발달사, 교육과정 등)과 모의수업/교구 제작 등의 발표형 수업에 아직 적응 중인 상태입니다.";
+                strategyHtml = `
+                    <p>• <b>작은 성공(Small Wins) 경험:</b> '오늘 발달이론 핵심 단어 10개 완벽 정리'와 같이 가벼운 목표부터 달성하며 성취감을 쌓으세요.</p>
+                    <p>• <b>유아교육 공부법 구조화:</b> 개념 요약 노트 만들기, 단원별 마인드맵, 동기들과 서로 수업 시연해 보기 등 나만의 학습 노하우를 만들어보세요.</p>
+                    <p>• <b>더하기교육원 멘토링 활용:</b> 선배나 교수님, 교육원 멘토에게 전공 학습법에 관한 조언을 적극적으로 구해보세요.</p>
+                `;
+            } else {
+                typeTitle = "🔴 Type D. 재충전 필요형 (Mind Recharge Needed)";
+                typeSubtitle = "전공에 대한 고민과 적응 부담으로 잠시 학습 에너지가 방전된 상태";
+                typeDesc = "전공 학문과의 적성 고민이나 대학 생활 적응 스트레스로 인해 동기와 자신감이 일시적으로 낮아진 상태입니다. 스스로를 자책하기보다 교사로서의 방향성을 재점검하고 재충전하는 시간이 필요합니다.";
+                strategyHtml = `
+                    <p>• <b>가볍게 시작하기:</b> 유아 그림책 읽기, 그림책 분석, 동요 들으며 아이디어 떠올리기 등 재미있고 가벼운 활동부터 전공 친숙도를 높이세요.</p>
+                    <p>• <b>1:1 진로 & 학업 상담:</b> 교수님이나 더하기교육원 상담 프로그램을 통해 현재 겪는 어려움을 솔직히 나누어 보세요.</p>
+                    <p>• <b>초심 회복하기:</b> '나는 왜 유아교육을 선택했는가?'를 편안한 마음으로 돌아보고 소소한 힐링 시간을 가지세요.</p>
+                `;
+            }
+
+            document.getElementById('resultTypeTitle').innerText = typeTitle;
+            document.getElementById('resultTypeSubtitle').innerText = typeSubtitle;
+            document.getElementById('resultTypeDesc').innerText = typeDesc;
+            document.getElementById('strategyContent').innerHTML = strategyHtml;
+
+            // Domain Bars rendering
+            const domainBarsContainer = document.getElementById('domainBars');
+            domainBarsContainer.innerHTML = '';
+            domainNames.forEach((name, idx) => {
+                const score = domainScores[idx];
+                const pct = Math.round((score / 30) * 100);
+                domainBarsContainer.innerHTML += `
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="text-slate-700">${name}</span>
+                            <span class="text-rose-600">${score}점 / 30점</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                            <div class="bg-rose-500 h-2.5 rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Domain Solutions rendering
+            const solutionsContainer = document.getElementById('domainSolutions');
+            solutionsContainer.innerHTML = '';
+            const domainTips = [
+                { title: "내재적 동기", tip: "유아 관찰 일지나 그림책 분석을 통해 유아의 시선에서 세상을 바라보는 재미를 체감하세요." },
+                { title: "외재적 동기", tip: "유치원정교사 자격 및 임용 D-day 로드맵을 그려 직관적인 비전을 설정하세요." },
+                { title: "자기효능감", tip: "쉬운 전공 개념부터 차근차근 점령하며 '나도 훌륭한 교사가 될 수 있다'는 자신감을 키우세요." },
+                { title: "학습 전략", tip: "주간 학습 플래너 활용 및 교구 제작 아이디어 스케치북을 만들어 활용하세요." },
+                { title: "회복탄력성", tip: "동기들과의 모의수업 피드백을 긍정적 성장의 기회로 받아들이고 나만의 스트레스 해소법을 찾으세요." }
+            ];
+
+            domainScores.forEach((score, idx) => {
+                const isLow = score <= 18;
+                solutionsContainer.innerHTML += `
+                    <div class="p-3 rounded-xl ${isLow ? 'bg-amber-50 border border-amber-200' : 'bg-slate-50 border border-slate-100'}">
+                        <div class="font-bold ${isLow ? 'text-amber-800' : 'text-slate-800'} mb-1 flex items-center">
+                            <i class="fa-solid ${isLow ? 'fa-triangle-exclamation text-amber-500' : 'fa-circle-check text-rose-500'} mr-1.5"></i>
+                            ${domainTips[idx].title} (${score}점)
+                        </div>
+                        <p class="text-slate-600 leading-tight">${domainTips[idx].tip}</p>
+                    </div>
+                `;
+            });
+
+            // Render Chart
+            renderRadarChart(domainScores);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderRadarChart(scores) {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            
+            if (radarChartInstance) {
+                radarChartInstance.destroy();
+            }
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: domainNames,
+                    datasets: [{
+                        label: '나의 점수 (30점 만점)',
+                        data: scores,
+                        backgroundColor: 'rgba(244, 63, 94, 0.2)',
+                        borderColor: '#f43f5e',
+                        pointBackgroundColor: '#fb923c',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#fb923c',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 30,
+                            ticks: {
+                                stepSize: 6,
+                                backdropColor: 'transparent',
+                                font: { size: 10 }
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 11,
+                                    weight: 'bold'
+                                },
+                                color: '#334155'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function restartTest() {
+            answers.fill(0);
+            currentPage = 0;
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('introScreen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
